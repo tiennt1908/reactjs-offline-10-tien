@@ -53,7 +53,27 @@ function RenderCart(){
   const total= carts.reduce((total, item)=>{
     const product = products[products.findIndex(p=>p.id==item.productId)];
     return total+item.amount*product.price;
-  },0)
+},0)
+
+let cartHTML = "";
+carts.forEach((e)=>{
+  const product = products[products.findIndex(p=>p.id==e.productId)];
+  cartHTML+=`
+  <tr>
+    <td>${product.id}</td>
+    <td>${product.name}</td>
+    <td>${product.price}</td>
+    <td>
+      <input type="number" class="form-control" id="input-item-cart-${e.id}" value="${e.amount}">
+    </td>
+    <td><span class="fw-bold">${product.price*e.amount}</span></td>
+    <td>
+      <button type="button" class="btn btn-link btn-sm btn-rounded" data-cart-id=${e.id} onclick="UpdateProduct(this.dataset.cartId)">Update</button>
+      <button type="button" class="btn btn-link btn-sm btn-rounded" data-cart-id=${e.id} onclick="RemoveProduct(this.dataset.cartId)">Delete</button>
+    </td>
+  </tr>
+  `;
+})
   document.getElementById("table-cart").innerHTML = `
   <table class="table align-middle mb-0 bg-white">
     <thead class="bg-light">
@@ -68,24 +88,7 @@ function RenderCart(){
     </thead>
     <tbody>
       ${
-        carts.map((e)=>{
-          const product = products[products.findIndex(p=>p.id==e.productId)];
-          return `
-          <tr>
-            <td>${product.id}</td>
-            <td>${product.name}</td>
-            <td>${product.price}</td>
-            <td>
-              <input type="number" class="form-control" id="input-item-cart-${e.id}" value="${e.amount}">
-            </td>
-            <td><span class="fw-bold">${product.price*e.amount}</span></td>
-            <td>
-              <button type="button" class="btn btn-link btn-sm btn-rounded" data-cart-id=${e.id} onclick="UpdateProduct(this.dataset.cartId)">Update</button>
-              <button type="button" class="btn btn-link btn-sm btn-rounded" data-cart-id=${e.id} onclick="RemoveProduct(this.dataset.cartId)">Delete</button>
-            </td>
-          </tr>
-          `;
-        })
+        cartHTML
       }
     </tbody>
     <tfoot>
