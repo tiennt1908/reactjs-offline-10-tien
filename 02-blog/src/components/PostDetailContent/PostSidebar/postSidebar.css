@@ -1,0 +1,9 @@
+.post-detail__side {
+    -webkit-flex-basis: 33.333333%;
+    -ms-flex-preferred-size: 33.333333%;
+    flex-basis: 33.333333%;
+    padding-left: 4rem;
+    display: none; }
+    @media screen and (min-width: 768px) {
+      .post-detail__side {
+        display: block; } }
