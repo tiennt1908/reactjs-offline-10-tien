@@ -1,13 +1,17 @@
-import React from 'react'
-import ButtonCustom from '../Button'
-import "./main-title.css"
-export default function MainTitle({ title, isStyleSearch, isShowButtonCustom, buttonName, goto }) {
-    let styleTitle = "main-title spacing ";
-    styleTitle += isStyleSearch ? "main-title__search" : "d-flex tcl-jc-between tcl-ais-center";
+import React from 'react';
+import ButtonCustom from '../Button';
+import "./main-title.css";
+import cls from "classnames";
+
+export default function MainTitle({ isStyleSearch, children, buttonName, ...btnRestProp }) {
+
+    const classTitle = cls("main-title spacing", { "main-title__search": isStyleSearch, "d-flex tcl-jc-between tcl-ais-center": !isStyleSearch });
+
     return (
-        <div className={styleTitle}>
-            <h2>{title}</h2>
-            {isShowButtonCustom ? <ButtonCustom buttonName={buttonName} goto={goto} /> : <></>}
+        <div className={classTitle}>
+            <h2>{children}</h2>
+            {buttonName && <ButtonCustom colorStyle="default" isTagA={true} {...btnRestProp} >{buttonName}</ButtonCustom>}
         </div>
     )
+
 }

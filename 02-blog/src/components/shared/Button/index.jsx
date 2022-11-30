@@ -1,29 +1,25 @@
 import React from 'react'
 import "./button.css";
-import { Link } from 'react-router-dom';
-export default function ButtonCustom({ isLoadingButton, isLoginButton, buttonName, goto }) {
+import IconLoading from '../IconLoading';
+import cls from "classnames";
+
+export default function ButtonCustom({ isLoadingIcon, isTagA, colorStyle, sizeStyle, children, ...restProp }) {
+
+    const colorClass = "btn-" + colorStyle;
+    const sizeClass = "btn-size-" + sizeStyle;
+    const classComponent = cls("btn", { [colorClass]: colorStyle, [sizeClass]: sizeStyle });
+
+    if (isTagA) {
+        return (
+            <a className={classComponent} {...restProp}>{isLoadingIcon && <IconLoading />} {children}</a>
+        )
+    }
+
     return (
-        <>
-            {
-                (isLoadingButton || isLoginButton)
-                    ?
-                    <button className="btn btn-primary btn-size-large">
-                        {
-                            isLoadingButton
-                                ?
-                                <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
-                                    <circle cx={50} cy={50} fill="none" stroke="currentColor" strokeWidth={10} r={35} strokeDasharray="164.93361431346415 56.97787143782138" transform="rotate(120.057 50 50)">
-                                        <animateTransform attributeName="transform" type="rotate" repeatCount="indefinite" dur="1s" values="0 50 50;360 50 50" keyTimes="0;1" />
-                                    </circle>
-                                </svg>
-                                :
-                                <></>
-                        }
-                        {buttonName}
-                    </button>
-                    :
-                    <Link to={goto} className="btn btn-default">{buttonName}</Link>
-            }
-        </>
+        <button className={classComponent} {...restProp}>
+            {isLoadingIcon && <IconLoading />}
+            {children}
+        </button>
     )
+
 }

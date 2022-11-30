@@ -1,10 +1,13 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import ButtonCustom from '../shared/Button';
+
 export default function ArticleCategory() {
+
   return (
     <ul className="article-item__categories">
-        <li><Link to="/" className="btn btn-category">News</Link></li>
-        <li><Link to="/" className="btn btn-category">Music</Link></li>
+      <li><ButtonCustom isTagA={true} colorStyle="category" href="/" >News</ButtonCustom></li>
+      <li><ButtonCustom isTagA={true} colorStyle="category" href="/" >Music</ButtonCustom></li>
     </ul>
   )
+
 }

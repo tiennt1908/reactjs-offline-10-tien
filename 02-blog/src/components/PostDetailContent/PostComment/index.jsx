@@ -5,6 +5,7 @@ import "./comments.css";
 import CommentViewMore from './CommentViewMore';
 
 export default function PostComment() {
+
     return (
         <div className="post-detail__comments">
             <CommentForm />
@@ -32,4 +33,5 @@ export default function PostComment() {
             </ul>
         </div>
     )
+
 }

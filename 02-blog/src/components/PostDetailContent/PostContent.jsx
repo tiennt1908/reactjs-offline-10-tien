@@ -1,6 +1,7 @@
 import React from 'react'
 
 export default function PostContent() {
+
     return (
         <div className="rte">
             <p>Markdown is a lightweight markup language with plain-text-formatting syntax. Its design allows it
@@ -38,4 +39,5 @@ export default function PostContent() {
             </ol>
         </div>
     )
+
 }

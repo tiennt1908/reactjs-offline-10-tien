@@ -7,21 +7,23 @@ import PostTags from './PostTags';
 import PostThumbnail from './PostThumbnail';
 
 export default function PostDetailContent() {
+
     return (
         <div className="post-detail__fluid">
             <div className="tcl-container">
                 <div className="post-detail__wrapper">
                     <div className="post-detail__content">
-                        <PostThumbnail/>
+                        <PostThumbnail />
                         <div className="content-padding">
-                            <PostContent/>
-                            <PostTags/>
-                            <PostComment/>
+                            <PostContent />
+                            <PostTags />
+                            <PostComment />
                         </div>
                     </div>
-                    <PostSidebar/>
+                    <PostSidebar />
                 </div>
             </div>
         </div>
     )
+
 }

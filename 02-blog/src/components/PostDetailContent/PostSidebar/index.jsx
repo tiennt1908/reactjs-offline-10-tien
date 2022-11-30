@@ -4,11 +4,13 @@ import PostsRelated from './RelatedPosts';
 import "./postSidebar.css";
 
 export default function PostSidebar() {
+
     return (
         <div className="post-detail__side">
-            <PostAuthor/>
+            <PostAuthor />
             <div className="spacing" />
-            <PostsRelated/>
+            <PostsRelated />
         </div>
     )
+
 }

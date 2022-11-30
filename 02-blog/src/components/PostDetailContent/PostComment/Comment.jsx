@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 
 export default function Comment() {
+
     return (
         <div className="comments__section">
             <div className="comments__section--avatar">
@@ -18,4 +19,5 @@ export default function Comment() {
             </div>
         </div>
     )
+
 }

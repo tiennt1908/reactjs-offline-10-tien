@@ -1,7 +1,9 @@
 import React from 'react';
 import "./postDetailHead.css";
 import { Link } from 'react-router-dom';
+
 export default function PostDetailHead() {
+
     return (
         <div className="post-detail__head">
             <div className="tcl-container">
@@ -23,4 +25,5 @@ export default function PostDetailHead() {
             </div>
         </div>
     )
+
 }

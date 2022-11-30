@@ -1,16 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+
 export default function ArticleInfor({ isShowAvatar }) {
+
+    let avatar = "";
+    if (isShowAvatar) {
+        avatar = <div className="article-item__author-image">
+            <Link aria-label="John Doe" to="/"> <img src="assets/images/john-doe.png" alt="john-doe" /></Link>
+        </div>;
+    }
+
     return (
         <div className="article-item__info">
-            {
-                isShowAvatar ?
-                    <div className="article-item__author-image">
-                        <Link aria-label="John Doe" to="/"> <img src="assets/images/john-doe.png" alt="john-doe" /></Link>
-                    </div>
-                    : <></>
-            }
-
+            {avatar}
             <div className="article-item__info-right">
                 <div className="article-item__author-name">
                     <Link to="/"><strong>John Doe</strong></Link>
@@ -27,4 +29,5 @@ export default function ArticleInfor({ isShowAvatar }) {
             </div>
         </div>
     )
+
 }

@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 export default function PostRelated() {
+
     return (
         <article className="related-post__card">
             <Link to="/" className="related-post__title">5 BBQ Recipes to Get Your Summer Started</Link>
@@ -17,4 +18,5 @@ export default function PostRelated() {
             </div>
         </article>
     )
+
 }

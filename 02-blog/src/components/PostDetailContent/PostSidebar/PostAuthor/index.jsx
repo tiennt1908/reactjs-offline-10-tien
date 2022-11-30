@@ -1,7 +1,9 @@
 import React from 'react';
 import "./post-author.css";
 import { Link } from 'react-router-dom';
+
 export default function PostAuthor() {
+
     return (
         <div className="post-author">
             <div className="post-author__bg-avatar">
@@ -16,4 +18,5 @@ export default function PostAuthor() {
                 vel vero vel vero vel vero vel vero!</p>
         </div>
     )
+
 }

@@ -4,10 +4,11 @@ import ButtonCustom from '../shared/Button';
 import MainTitle from "../shared/MainTitle";
 
 export default function ArticleGeneral() {
+
     return (
         <div className="articles-list section">
             <div className="tcl-container">
-                <MainTitle title="News List" isShowButtonCustom={true} buttonName="View More" goto="/" />
+                <MainTitle buttonName="View More" href="/search" >News List</MainTitle>
                 <div className="tcl-row">
                     <div className="tcl-col-12 tcl-col-md-6">
                         <ArticleItem isStyleCard={true} />
@@ -29,9 +30,10 @@ export default function ArticleGeneral() {
                     </div>
                 </div>
                 <div className="text-center">
-                    <ButtonCustom isLoadingButton={true} buttonName=" Load more"></ButtonCustom>
+                    <ButtonCustom isLoadingIcon={true} colorStyle="primary" sizeStyle="large" > Load more</ButtonCustom>
                 </div>
             </div>
         </div>
     )
+
 }
