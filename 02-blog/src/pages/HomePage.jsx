@@ -2,9 +2,10 @@ import React from 'react';
 import ArticleLastest from '../components/ArticleLastest';
 import ArticlePopular from "../components/ArticlePopular";
 import ArticleGeneral from "../components/ArticleGeneral";
+import { connect } from 'react-redux';
 
-export default function HomePage() {
-
+function HomePage({ posts }) {
+  console.log(posts);
   return (
     <>
       <ArticleLastest />
@@ -12,5 +13,10 @@ export default function HomePage() {
       <ArticleGeneral />
     </>
   )
-
 }
+const mapStateToProps = state => {
+  return {
+    posts: state.posts
+  }
+}
+export default connect(mapStateToProps, null)(HomePage)
