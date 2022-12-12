@@ -1,22 +1,12 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
-import { formatMoney } from '../../common';
+import { formatMoney, formatPercent } from '../../common/index';
+import useBudget from '../../hooks/useBudget';
 import BudgetBar from './BudgetBar'
 
 export default function Statistic() {
 
-    const listBudgetItem = useSelector(state => state.listBudgetItem);
-
-    let income = 0;
-    let expenses = 0;
-    for (let i = 0; i < listBudgetItem.length; i++) {
-        const val = listBudgetItem[i].amount;
-        income += val >= 0 && val;
-        expenses += val < 0 && val;
-    }
-    const total = income + expenses;
-    const incomePercent = Math.round((income * 100) / total);
-    const expensesPercent = Math.round((Math.abs(expenses) * 100) / total);
+    const { totalIncome, totalExpense, total } = useBudget();
+    const expensesPercent = formatPercent(totalExpense, totalIncome);
 
     return (
         <div className="budget">
@@ -26,8 +16,8 @@ export default function Statistic() {
 
             <div className="budget__value">{formatMoney(total)}</div>
 
-            <BudgetBar value={income}>Income</BudgetBar>
-            <BudgetBar value={expenses} percent={expensesPercent}>Expenses</BudgetBar>
+            <BudgetBar value={totalIncome}>Income</BudgetBar>
+            <BudgetBar value={totalExpense} percent={expensesPercent}>Expenses</BudgetBar>
         </div>
     )
 }

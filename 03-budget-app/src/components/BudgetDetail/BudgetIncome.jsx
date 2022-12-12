@@ -2,7 +2,7 @@ import React from 'react'
 
 import BudgetItem from './BudgetItem'
 
-export default function BudgetIncome({ listItem, total }) {
+export default function BudgetIncome({ listItem }) {
 
     return (
         <div className="income">

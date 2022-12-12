@@ -11,7 +11,7 @@ export default function BudgetBar({ children, value, percent }) {
             <div className={titleClass}>{children}</div>
             <div className="right">
                 <div className={budgetClass}>{formatMoney(value)}</div>
-                {!isNaN(percent) && <div className="budget__expenses--percentage">{Math.abs(percent)} %</div>}
+                {percent && <div className="budget__expenses--percentage">{percent}</div>}
             </div>
         </div>
     )
