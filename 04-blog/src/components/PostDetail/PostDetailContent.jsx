@@ -3,14 +3,14 @@ import PostDetailComments from './PostDetailComments';
 import PostDetailRichText from './PostDetailRichText';
 import PostDetailTags from './PostDetailTags';
 
-function PostDetailContent() {
+function PostDetailContent({ featured_media_url, content }) {
   return (
     <div className="post-detail__content">
       <div className="thumbnail">
-        <img src="/assets/images/blog-detail.jpg" alt="blog-title" />
+        <img src={featured_media_url} alt="blog-title" />
       </div>
       <div className="content-padding">
-        <PostDetailRichText />
+        <PostDetailRichText content={content} />
 
         <PostDetailTags />
 

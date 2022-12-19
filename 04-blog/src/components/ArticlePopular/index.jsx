@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { actGetPopularPosts } from '../../store/post/actions';
+import { actAsyncGetPopularPosts, actGetPopularPosts } from '../../store/post/actions';
 import ArticleItem from '../ArticleItem';
 import './popular-news-list.css';
 
@@ -8,11 +8,7 @@ function ArticlePopular() {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    fetch('http://wp-api.test/wp-json/wp/v2/posts?per_page=3&page=1&orderby=post_views&lang=vi')
-      .then((res) => res.json())
-      .then(data => {
-        dispatch(actGetPopularPosts(data));
-      });
+    dispatch(actAsyncGetPopularPosts());
   }, []);
   const popularPost = useSelector(state => state.post.popularPosts);
 

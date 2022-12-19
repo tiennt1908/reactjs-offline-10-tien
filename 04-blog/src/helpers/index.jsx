@@ -7,7 +7,6 @@ export const formatPostDate = (date) => {
 }
 export const getTimeSince = (date) => {
     let seconds = Math.floor((new Date() - new Date(date)) / 1000);
-    console.log(seconds);
     let interval = seconds / 31536000;
 
     if (interval > 1) {

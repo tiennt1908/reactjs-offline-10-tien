@@ -1,9 +1,11 @@
-export default function ArticleItemThumb({ featured_media_url, link }) {
+import { Link } from "react-router-dom";
+
+export default function ArticleItemThumb({ featured_media_url, ...restProps }) {
   return (
     <div className="article-item__thumbnail">
-      <a href={link}>
+      <Link {...restProps}>
         <img src={featured_media_url} alt={featured_media_url} />
-      </a>
+      </Link>
     </div>
   );
 }

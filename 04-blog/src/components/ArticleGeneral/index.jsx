@@ -1,31 +1,38 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { actGetNewsPosts } from '../../store/post/actions';
+import { actAsyncGetNewsPosts } from '../../store/post/actions';
 import ArticleItem from '../ArticleItem';
 import Button from '../shared/Button';
 import MainTitle from '../shared/MainTitle';
 
 function ArticleGeneral() {
-  const [loadMoreIsError, setLoadMoreIsError] = useState(false);
+
   const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
     const getPost = (p) => {
-      fetch(`http://wp-api.test/wp-json/wp/v2/posts?per_page=2&page=${p}&lang=vi`)
-        .then((res) => res.json())
-        .then((data) => {
-          dispatch(actGetNewsPosts(data));
-        })
-        .catch((err) => {
-          setLoadMoreIsError(true);
-          console.log(err)
-        })
+      setLoading(true);
+      dispatch(actAsyncGetNewsPosts(p)).then((data) => {
+        setLoading(false);
+      });
     }
     getPost(page);
   }, [page]);
 
+  const loadMore = () => {
+    if (!loading)
+      setPage(page + 1)
+  }
+
   const newsPosts = useSelector(state => state.post.newsPosts);
+  const totalPage = useSelector(state => state.post.totalPageNewsPosts);
+
+  const loadingBtn = page === totalPage && !loading ?
+    <></> : <Button type="primary" size="large" loading={loading} onClick={() => { loadMore() }}>
+      Tải thêm
+    </Button>
 
   return (
     <div className="articles-list section">
@@ -47,9 +54,9 @@ function ArticleGeneral() {
         </div>
         {/* End Row News List */}
         <div className="text-center">
-          <Button type="primary" size="large" loading={true} hidden={loadMoreIsError} onClick={() => { setPage(page + 1) }}>
-            Tải thêm
-          </Button>
+          {
+            loadingBtn
+          }
         </div>
       </div>
     </div>

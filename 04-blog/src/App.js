@@ -1,13 +1,13 @@
-import Footer from './components/Footer';
-import Header from './components/Header';
+import Footer from "./components/Footer";
+import Header from "./components/Header";
 
-import HomePage from './pages/HomePage';
-import LoginPage from './pages/LoginPage';
-import PostDetailPage from './pages/PostDetailPage';
-import RegisterPage from './pages/RegisterPage';
-import SearchPage from './pages/SearchPage';
+import HomePage from "./pages/HomePage";
+import LoginPage from "./pages/LoginPage";
+import PostDetailPage from "./pages/PostDetailPage";
+import RegisterPage from "./pages/RegisterPage";
+import SearchPage from "./pages/SearchPage";
 
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 function App() {
   return (
@@ -18,7 +18,7 @@ function App() {
           <Route path="/post/:slug">
             <PostDetailPage />
           </Route>
-          <Route path="/search">
+          <Route path="/search/:searchValue">
             <SearchPage />
           </Route>
           <Route path="/login">
