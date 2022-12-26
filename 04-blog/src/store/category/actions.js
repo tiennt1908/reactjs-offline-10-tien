@@ -1,4 +1,7 @@
 import axios from "axios";
+import { parseStructPostData } from "../../helpers";
+import Api from "../../service/api";
+import categoryService from "../../service/category";
 
 export const ACT_GET_CATEGORIES = "ACT_GET_CATEGORIES";
 export const actGetCategories = (categories) => {
@@ -12,11 +15,16 @@ export const actGetCategories = (categories) => {
 export const actAsyncGetCategories = () => {
   return async (dispatch) => {
     try {
-      const response = await axios.get(
-        "http://wp-api.test/wp-json/wp/v2/categories?per_page=100&page=1"
-      );
+      const response = await categoryService.getCategories();
       const categories = response.data;
-      dispatch(actGetCategories(categories));
+      const optimizedCategories = {};
+      let i = 0;
+      const count = categories.length;
+      for (i = 0; i < count; i++) {
+        const category = categories[i];
+        optimizedCategories[category.id] = category;
+      }
+      dispatch(actGetCategories(optimizedCategories));
     } catch (err) {
       console.log(err);
     }

@@ -27,16 +27,16 @@ export default function ArticleItem({
 
   return (
     <article className={classes}>
-      <ArticleItemThumb featured_media_url={post.featured_media_url} to={"/post/" + post.slug} />
+      <ArticleItemThumb mediaURL={post.mediaURL} to={"/post/" + post.slug} />
       <div className="article-item__content">
         {isShowCategories && <ArticleItemCategories categoriesId={post.categories} />}
-        {isShowCategories && <ArticleItemStats view_count={post.view_count} />}
+        {isShowCategories && <ArticleItemStats viewCount={post.viewCount} />}
 
-        <ArticleItemTitle to={"/post/" + post.slug}>{post.title.rendered}</ArticleItemTitle>
+        <ArticleItemTitle to={"/post/" + post.slug}>{post.title}</ArticleItemTitle>
 
-        {isShowDesc && <ArticleItemDesc excerpt={post.excerpt.rendered} />}
+        {isShowDesc && <ArticleItemDesc excerpt={post.excerpt} />}
 
-        <ArticleItemInfo isShowAvatar={isShowAvatar} date={post.date} author_data={post.author_data} />
+        <ArticleItemInfo isShowAvatar={isShowAvatar} date={post.date} author={post.author} />
       </div>
     </article>
   );

@@ -1,14 +1,15 @@
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 export default function ArticleItemCategories({ categoriesId }) {
   const categories = useSelector(state => state.category.categories);
   const categoryComponent = categoriesId.map((id) => {
-    const category = categories.find(e => e.id === id);
+    const category = categories[id];
     return (
       <li key={id}>
-        <a href={category?.link} className="btn btn-category">
+        <Link to={`/category/${id}`} className="btn btn-category">
           {category?.name}
-        </a>
+        </Link>
       </li>
     )
   })

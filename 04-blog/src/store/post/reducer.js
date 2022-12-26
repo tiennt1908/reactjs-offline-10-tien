@@ -1,17 +1,18 @@
 import {
   ACT_GET_LATEST_POSTS,
-  ACT_GET_NEWS_POSTS,
+  ACT_GET_GENERAL_POSTS,
   ACT_GET_POPULAR_POSTS,
   ACT_GET_SEARCH_POSTS,
+  ACT_GET_POSTS_BY_CATEGORY_ID,
 } from "./actions";
 
 const initialState = {
   latestPosts: [],
   popularPosts: [],
-  newsPosts: [],
+  generalPosts: [],
   searchPosts: [],
-  totalPageNewsPosts: 0,
-  totalPageSearchPosts: 0,
+  categoryPosts: [],
+  totalPage: 0,
 };
 function reducer(state = initialState, action) {
   switch (action.type) {
@@ -25,20 +26,35 @@ function reducer(state = initialState, action) {
         ...state,
         popularPosts: action.payload.posts,
       };
-    case ACT_GET_NEWS_POSTS:
+    case ACT_GET_GENERAL_POSTS:
+      const newGeneralPosts =
+        action.payload.currentPage === 1
+          ? action.payload.posts
+          : [...state.generalPosts, ...action.payload.posts];
       return {
         ...state,
-        newsPosts: [...state.newsPosts, ...action.payload.posts],
-        totalPageNewsPosts: action.payload.totalPage,
+        generalPosts: newGeneralPosts,
+        totalPage: action.payload.totalPage,
       };
     case ACT_GET_SEARCH_POSTS:
+      const newSearchPosts =
+        action.payload.currentPage === 1
+          ? action.payload.posts
+          : [...state.searchPosts, ...action.payload.posts];
       return {
         ...state,
-        searchPosts:
-          action.payload.currentPage === 1
-            ? action.payload.posts
-            : [...state.searchPosts, ...action.payload.posts],
-        totalPageSearchPosts: action.payload.totalPage,
+        searchPosts: newSearchPosts,
+        totalPage: action.payload.totalPage,
+      };
+    case ACT_GET_POSTS_BY_CATEGORY_ID:
+      const categoryPosts =
+        action.payload.currentPage === 1
+          ? action.payload.posts
+          : [...state.categoryPosts, ...action.payload.posts];
+      return {
+        ...state,
+        categoryPosts: categoryPosts,
+        totalPage: action.payload.totalPage,
       };
     default:
       return state;

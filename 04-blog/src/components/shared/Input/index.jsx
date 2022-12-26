@@ -3,7 +3,7 @@ import { useState } from 'react';
 import IconSearch from '../IconSearch';
 import './input.css';
 
-function Input({ label, type = 'text', className, icon = <IconSearch />, ...restProps }) {
+function Input({ label, type = 'text', className, icon = <IconSearch />, isError, messageError, ...restProps }) {
   const [localType, setLocalType] = useState(type);
 
   function handleToggleShowPwd() {
@@ -28,12 +28,14 @@ function Input({ label, type = 'text', className, icon = <IconSearch />, ...rest
       </div>
     );
   }
+  const styleError = isError ? { border: "1px solid #ee2c5a" } : {};
 
   return (
     <div className="form-control">
       {label && <label>{label}</label>}
       {type === 'password' && <i className={classesIconPwd} onClick={handleToggleShowPwd}></i>}
-      <input type={localType} className={className} {...restProps} />
+      <input type={localType} className={className} {...restProps} style={styleError} />
+      <span style={{ color: "#ee2c5a", fontSize: 14, position: "absolute" }}>{messageError}</span>
     </div>
   );
 }

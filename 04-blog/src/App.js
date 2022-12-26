@@ -8,8 +8,18 @@ import RegisterPage from "./pages/RegisterPage";
 import SearchPage from "./pages/SearchPage";
 
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { actAsyncGetCategories } from "./store/category/actions";
+import { actAsyncGetMenus } from "./store/menu/actions";
+import CategoryPage from "./pages/CategoryPage";
 
 function App() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(actAsyncGetCategories());
+    dispatch(actAsyncGetMenus());
+  }, []);
   return (
     <BrowserRouter>
       <div className="wrapper-content">
@@ -20,6 +30,9 @@ function App() {
           </Route>
           <Route path="/search/:searchValue">
             <SearchPage />
+          </Route>
+          <Route path="/category/:categoryId">
+            <CategoryPage />
           </Route>
           <Route path="/login">
             <LoginPage />

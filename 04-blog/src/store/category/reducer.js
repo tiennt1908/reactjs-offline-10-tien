@@ -2,6 +2,7 @@ import { ACT_GET_CATEGORIES } from "./actions";
 
 const initialState = {
   categories: [],
+  categoryPosts: [],
 };
 function reducer(state = initialState, action) {
   switch (action.type) {

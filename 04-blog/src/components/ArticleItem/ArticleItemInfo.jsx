@@ -2,14 +2,14 @@
 import { formatPostDate, getTimeSince } from '../../helpers';
 import ArticleItemAvatar from './ArticleItemAvatar';
 
-export default function ArticleItemInfo({ isShowAvatar, date, author_data }) {
+export default function ArticleItemInfo({ isShowAvatar, date, author }) {
   return (
     <div className="article-item__info">
-      {isShowAvatar && <ArticleItemAvatar avatar={author_data?.avatar} />}
+      {isShowAvatar && <ArticleItemAvatar avatar={author?.avatar} />}
       <div className="article-item__info-right">
         <div className="article-item__author-name">
           <a href="/">
-            <strong>{author_data?.nickname}</strong>
+            <strong>{author?.nickname}</strong>
           </a>
         </div>
         <div className="article-item__datetime">

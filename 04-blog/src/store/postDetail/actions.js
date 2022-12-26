@@ -1,4 +1,5 @@
 import axios from "axios";
+import postDetailService from "../../service/postDetail";
 
 export const ACT_GET_POST_DETAIL = "ACT_GET_POST_DETAIL";
 export const ACT_GET_POST_RELATED = "ACT_GET_POST_RELATED";
@@ -22,9 +23,7 @@ export function actGetPostRelated(posts) {
 export function actAsyncGetPostDetail(slug) {
   return async (dispatch) => {
     try {
-      const response = await axios.get(
-        `http://wp-api.test/wp-json/wp/v2/posts?slug=${slug}`
-      );
+      const response = await postDetailService.getPostDetail(slug);
       const postDetail = response.data;
       dispatch(actGetPostDetail(postDetail[0]));
       return { status: true, data: postDetail[0] };
@@ -37,9 +36,7 @@ export function actAsyncGetPostDetail(slug) {
 export function actAsyncGetPostRelated(author, exclude) {
   return async (dispatch) => {
     try {
-      const response = await axios.get(
-        `http://wp-api.test/wp-json/wp/v2/posts?per_page=3&page=1&author=${author}&exclude=${exclude}&lang=vi`
-      );
+      const response = await postDetailService.getPostRelated(author, exclude);
       const posts = response.data;
       dispatch(actGetPostRelated(posts));
       return { status: true };

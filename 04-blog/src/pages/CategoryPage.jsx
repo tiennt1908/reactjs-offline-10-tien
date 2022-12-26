@@ -4,17 +4,17 @@ import { useParams } from 'react-router-dom';
 import ArticleItem from '../components/ArticleItem';
 import Button from '../components/shared/Button';
 import MainTitle from '../components/shared/MainTitle';
-import { actAsyncSearchPosts } from '../store/post/actions';
+import { actAsyncGetGeneralPosts, actAsyncGetPostsByCategoryId, actGetPostsByCategoryId } from '../store/post/actions';
 
-function SearchPage() {
-  const { searchValue } = useParams();
+function CategoryPage() {
+  const { categoryId } = useParams();
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
 
   const getPost = (p) => {
     setLoading(true);
-    dispatch(actAsyncSearchPosts(searchValue, p)).then((data) => {
+    dispatch(actAsyncGetPostsByCategoryId(categoryId, p)).then((data) => {
       setLoading(false);
     })
   }
@@ -22,7 +22,7 @@ function SearchPage() {
   useEffect(() => {
     getPost(1);
     setPage(1);
-  }, [searchValue])
+  }, [categoryId])
 
   const loadMore = () => {
     if (!loading) {
@@ -32,9 +32,10 @@ function SearchPage() {
     }
   }
 
-  const posts = useSelector(state => state.post.searchPosts) || [];
+  const posts = useSelector(state => state.post.categoryPosts) || [];
   const totalPage = useSelector(state => state.post.totalPage);
-  const isLastPage = page === totalPage;
+  const isLastPage = page >= totalPage;
+
   const loadingBtn = isLastPage && !loading ?
     <></> : <Button type="primary" size="large" loading={loading} onClick={() => { loadMore() }}>
       Tải thêm
@@ -43,7 +44,7 @@ function SearchPage() {
   return (
     <div className="articles-list section">
       <div className="tcl-container">
-        <MainTitle type="search">{posts.length} kết quả tìm kiếm với từ khóa "{searchValue}"</MainTitle>
+        {/* <MainTitle type="search">{posts.length} kết quả tìm kiếm với từ khóa "{searchValue}"</MainTitle> */}
 
         <div className="tcl-row tcl-jc-center">
           {posts.map((e) => {
@@ -64,4 +65,4 @@ function SearchPage() {
   );
 }
 
-export default SearchPage;
+export default CategoryPage;

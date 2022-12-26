@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { actAsyncGetNewsPosts } from '../../store/post/actions';
+import { actAsyncGetGeneralPosts } from '../../store/post/actions';
 import ArticleItem from '../ArticleItem';
 import Button from '../shared/Button';
 import MainTitle from '../shared/MainTitle';
@@ -11,26 +11,31 @@ function ArticleGeneral() {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
+  const getPost = (p) => {
+    setLoading(true);
+    dispatch(actAsyncGetGeneralPosts(p)).then((data) => {
+      setLoading(false);
+    });
+  }
   useEffect(() => {
-    const getPost = (p) => {
-      setLoading(true);
-      dispatch(actAsyncGetNewsPosts(p)).then((data) => {
-        setLoading(false);
-      });
-    }
     getPost(page);
-  }, [page]);
+  }, []);
 
   const loadMore = () => {
-    if (!loading)
-      setPage(page + 1)
+    if (!loading) {
+      const nextPage = page + 1;
+      getPost(nextPage);
+      setPage(nextPage);
+    }
   }
 
-  const newsPosts = useSelector(state => state.post.newsPosts);
-  const totalPage = useSelector(state => state.post.totalPageNewsPosts);
+  const posts = useSelector(state => state.post.generalPosts);
+  const totalPage = useSelector(state => state.post.totalPage);
+  const isLastPage = page === totalPage;
 
-  const loadingBtn = page === totalPage && !loading ?
-    <></> : <Button type="primary" size="large" loading={loading} onClick={() => { loadMore() }}>
+
+  const loadingBtn = isLastPage && !loading ?
+    <></> : <Button type="primary" size="large" loading={loading} onClick={loadMore}>
       Tải thêm
     </Button>
 
@@ -43,7 +48,7 @@ function ArticleGeneral() {
         {/* End Row News List */}
         <div className="tcl-row">
           {
-            newsPosts.map((p) => {
+            posts.map((p) => {
               return (
                 <div className="tcl-col-12 tcl-col-md-6" key={p.id}>
                   <ArticleItem post={p} isStyleCard isShowAvatar={false} />
