@@ -10,7 +10,7 @@ function ArticleLatest() {
 
   useEffect(() => {
     dispatch(actAsyncGetLatestPosts());
-  }, [])
+  }, [dispatch])
 
   const latestPost = useSelector(state => state.post.latestPosts);
   return (

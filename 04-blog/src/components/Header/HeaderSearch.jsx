@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { useHistory, useLocation, useParams } from 'react-router-dom';
+import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import Input from '../shared/Input';
 
 function HeaderSearch() {

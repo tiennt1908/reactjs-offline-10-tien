@@ -7,19 +7,21 @@ import PostDetailPage from "./pages/PostDetailPage";
 import RegisterPage from "./pages/RegisterPage";
 import SearchPage from "./pages/SearchPage";
 
-import { BrowserRouter, Route, Switch } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import CategoryPage from "./pages/CategoryPage";
 import { actAsyncGetCategories } from "./store/category/actions";
 import { actAsyncGetMenus } from "./store/menu/actions";
-import CategoryPage from "./pages/CategoryPage";
+import { actAsyncGetMe } from "./store/user/actions";
 
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(actAsyncGetCategories());
     dispatch(actAsyncGetMenus());
-  }, []);
+    dispatch(actAsyncGetMe());
+  }, [dispatch]);
   return (
     <BrowserRouter>
       <div className="wrapper-content">

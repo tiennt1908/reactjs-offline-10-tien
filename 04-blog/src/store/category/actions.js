@@ -1,6 +1,3 @@
-import axios from "axios";
-import { parseStructPostData } from "../../helpers";
-import Api from "../../service/api";
 import categoryService from "../../service/category";
 
 export const ACT_GET_CATEGORIES = "ACT_GET_CATEGORIES";

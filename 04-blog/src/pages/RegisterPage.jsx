@@ -1,28 +1,34 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { Link, useHistory } from 'react-router-dom';
 import Button from '../components/shared/Button';
 import Input from '../components/shared/Input';
+import useAuthenticated from '../customHook/useIsAuthenticated';
 import { validate } from '../helpers';
+import { actAsyncRegister } from '../store/user/actions';
 import './LoginPage/login.css';
 
 function RegisterPage() {
+  useAuthenticated();
+  
   const [form, setForm] = useState({
-    nickName: "",
+    email: "",
+    nickname: "",
     username: "",
     password: "",
     confirmPassword: ""
   });
-  const [error, setError] = useState({})
+  const [error, setError] = useState({});
+  const [messageError, setMessageError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const history = useHistory();
 
   function setField(field, event) {
     const value = event.target.value;
-    const dataValidate = { value }
-    if (field === "confirmPassword") {
-      dataValidate.password = form.password;
-    }
     setForm({ ...form, [field]: value });
     setError({
-      ...error, [field]: validate[field]?.(dataValidate) || { isError: false, message: "" }
+      ...error, [field]: validate[field]?.({ value }) || { isError: false, message: "" }
     });
   }
   const checkAllField = () => {
@@ -32,11 +38,7 @@ function RegisterPage() {
     let isError = false;
     for (i = 0; i < keys.length; i++) {
       const field = keys[i];
-      const dataValidate = { value: form[field] }
-      if (field === "confirmPassword") {
-        dataValidate.password = form.password;
-      }
-      listError[field] = validate[field]?.(dataValidate) || { isError: false, message: "" };
+      listError[field] = validate[field]?.({ value: form[field] }) || { isError: false, message: "" };
       if (listError[field].isError) {
         isError = true;
       }
@@ -46,7 +48,18 @@ function RegisterPage() {
   }
   const handleSubmitForm = (e) => {
     e.preventDefault();
-    checkAllField()
+    if (!checkAllField()) {
+      setLoading(true);
+      dispatch(actAsyncRegister(form.email, form.username, form.password, form.nickname)).then(({ status, message }) => {
+        if (status) {
+          history.push("/login");
+        }
+        else {
+          setMessageError(message);
+        }
+        setLoading(false);
+      });
+    }
   }
   return (
     <main className="login">
@@ -56,8 +69,10 @@ function RegisterPage() {
           <div className="tcl-col-12 tcl-col-sm-6 block-center">
             <h1 className="form-title text-center">Đăng ký</h1>
             <div className="form-login-register">
+              <p style={{ color: "#ee2c5a", fontSize: 14 }}>{messageError}</p>
               <form autoComplete="off">
-                <Input label="Nickname" placeholder="Nhập Nickname" autoComplete="off" isError={error.nickName?.isError} messageError={error.nickName?.message} onChange={(e) => setField("nickName", e)} />
+                <Input label="Email" placeholder="Nhập email ..." autoComplete="off" isError={error.email?.isError} messageError={error.email?.message} onChange={e => setField("email", e)} />
+                <Input label="Nickname" placeholder="Nhập Nickname" autoComplete="off" isError={error.nickname?.isError} messageError={error.nickname?.message} onChange={(e) => setField("nickname", e)} />
                 <Input label="Tên đăng nhập" placeholder="Nhập tên đăng nhập ..." autoComplete="off" isError={error.username?.isError} messageError={error.username?.message} onChange={(e) => setField("username", e)} />
                 <Input
                   type="password"
@@ -66,16 +81,9 @@ function RegisterPage() {
                   autoComplete="new-password"
                   isError={error.password?.isError} messageError={error.password?.message} onChange={(e) => setField("password", e)}
                 />
-                <Input
-                  type="password"
-                  label="Xác nhận mật khẩu"
-                  placeholder="Xác nhận mật khẩu ..."
-                  autoComplete="new-password"
-                  isError={error.confirmPassword?.isError} messageError={error.confirmPassword?.message} onChange={(e) => setField("confirmPassword", e)}
-                />
 
                 <div className="d-flex tcl-jc-between tcl-ais-center">
-                  <Button type="primary" size="large" onClick={e => handleSubmitForm(e)}>
+                  <Button type="primary" size="large" onClick={e => handleSubmitForm(e)} loading={loading}>
                     Đăng ký
                   </Button>
                   <Link to="/login">Bạn đã có tài khoản?</Link>

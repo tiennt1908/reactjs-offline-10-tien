@@ -68,6 +68,41 @@ export const parseStructListMenu = (list) => {
     }
     return list.map(parseStructMenu);
 }
+export const parseStructUserData = (user) => {
+    return {
+        id: user?.id,
+        email: user?.email,
+        firstName: user?.first_name,
+        lastName: user?.last_name,
+        link: user?.link,
+        name: user?.name,
+        nickname: user?.nickname,
+        slug: user?.slug,
+        avatarUrls: user?.avatar_urls
+    }
+}
+export const parseStructComment = (comment)=>{
+    return{
+        id: comment.id,
+        author: {
+            nickname: comment.author_data?.nickname,
+            desc: comment.author_data?.description,
+            avatar: comment.author_data?.avatar,
+        },
+        authorAvatarUrls: comment?.author_avatar_urls,
+        commentReplyCount: comment?.comment_reply_count,
+        content: comment?.content?.rendered,
+        date: comment?.date,
+        status: comment?.status,
+        parent: comment?.parent,
+        child:{
+            totalComment: 0,
+            totalPage: 0,
+            currentPage: 0,
+            data:[],
+        }
+    }
+}
 export const validate = {
     checkField(isError, message) {
         return {
@@ -76,22 +111,18 @@ export const validate = {
         }
     },
     username({ value }) {
-        const isError = !(/^[\w]{6,20}$/.test(value));
+        const isError = !(/^[\w]{4,20}$/.test(value));
         return this.checkField(isError, "Vui lòng nhập username từ 6-20 ký tự.");
     },
     password({ value }) {
         const isError = !(/^[\w]{6,}$/.test(value));
         return this.checkField(isError, "Vui lòng nhập mật khẩu có ít nhất 6 ký tự.");
     },
-    confirmPassword({ value, password }) {
-        const isError = value !== password;
-        return this.checkField(isError, "Mật khẩu không trùng khớp.");
-    },
     email({ value }) {
         const isError = !(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(value));
         return this.checkField(isError, "Định dạng email không hợp lệ.");
     },
-    nickName({ value }) {
+    nickname({ value }) {
         const isError = !(/^[A-Za-z]{2,20}$/.test(value));
         return this.checkField(isError, "Nickname có độ dài từ 2-20 ký tự và không chứa ký tự đặc biệt hoặc số.");
     },

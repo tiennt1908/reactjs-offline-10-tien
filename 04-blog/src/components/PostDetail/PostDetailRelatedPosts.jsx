@@ -3,7 +3,7 @@ import ArticleRelated from '../ArticleItem/ArticleRelated';
 
 function PostDetailRelatedPosts() {
 
-  const postsRelated = useSelector(state => state.postDetail.postsRelated);
+  const postsRelated = useSelector(state => state.post.relatedPosts);
 
   return (
     <div className="related-post">

@@ -2,7 +2,7 @@ import Api from "./api";
 
 const menuService = {
   getAll(inputParams) {
-    return Api.get("menus/v1/menus/main-menu-vi", {
+    return Api.call().get("menus/v1/menus/main-menu-vi", {
       params: {
         ...inputParams,
       },

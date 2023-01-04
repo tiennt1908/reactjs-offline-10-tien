@@ -3,8 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import ArticleItem from '../components/ArticleItem';
 import Button from '../components/shared/Button';
-import MainTitle from '../components/shared/MainTitle';
-import { actAsyncGetGeneralPosts, actAsyncGetPostsByCategoryId, actGetPostsByCategoryId } from '../store/post/actions';
+import { actAsyncGetPostsByCategoryId } from '../store/post/actions';
 
 function CategoryPage() {
   const { categoryId } = useParams();

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { actAsyncGetPopularPosts, actGetPopularPosts } from '../../store/post/actions';
+import { actAsyncGetPopularPosts } from '../../store/post/actions';
 import ArticleItem from '../ArticleItem';
 import './popular-news-list.css';
 
@@ -9,7 +9,7 @@ function ArticlePopular() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(actAsyncGetPopularPosts());
-  }, []);
+  }, [dispatch]);
   const popularPost = useSelector(state => state.post.popularPosts);
 
   return (

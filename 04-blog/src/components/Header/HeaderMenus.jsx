@@ -1,10 +1,14 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { actLogout } from '../../store/user/actions';
 
 function HeaderMenus() {
   const menu = useSelector((state) => state.menu.menus);
-
-
+  const user = useSelector(state => state.user.currentUser);
+  const dispatch = useDispatch();
+  const handleLogout = () => {
+    dispatch(actLogout());
+  }
   function renderMultipleMenu(list) {
     return (
       <ul className="header-nav__lists">
@@ -33,9 +37,27 @@ function HeaderMenus() {
         }
         <ul className="header-nav__lists">
           <li className="user">
-            <Link to="/login">
-              <i className="icons ion-person" /> Tài khoản
-            </Link>
+            {
+              !user?.id && (
+                <Link to="/login">
+                  <i className="icons ion-person" /> Tài khoản
+                </Link>
+              )
+            }
+            {
+              user?.id && (
+                <>
+                  <Link to="/">
+                    <i className="icons ion-person" />{user.name}
+                  </Link>
+                  <ul className="header-nav__lists">
+                    <li>
+                      <Link to="/" onClick={handleLogout}>Logout</Link>
+                    </li>
+                  </ul>
+                </>
+              )
+            }
           </li>
         </ul>
       </div>

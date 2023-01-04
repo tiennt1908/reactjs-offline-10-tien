@@ -3,7 +3,7 @@ import PostDetailComments from './PostDetailComments';
 import PostDetailRichText from './PostDetailRichText';
 import PostDetailTags from './PostDetailTags';
 
-function PostDetailContent({ featured_media_url, content }) {
+function PostDetailContent({ featured_media_url, content, handleLoadComments }) {
   return (
     <div className="post-detail__content">
       <div className="thumbnail">
@@ -14,7 +14,7 @@ function PostDetailContent({ featured_media_url, content }) {
 
         <PostDetailTags />
 
-        <PostDetailComments />
+        <PostDetailComments handleLoadComments={handleLoadComments}/>
       </div>
     </div>
   );

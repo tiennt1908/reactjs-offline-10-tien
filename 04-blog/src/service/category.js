@@ -2,7 +2,7 @@ import Api from "./api";
 
 const categoryService = {
   getAll(inputParams) {
-    return Api.get("wp/v2/categories", {
+    return Api.call().get("wp/v2/categories", {
       params: {
         ...inputParams,
       },
